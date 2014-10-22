@@ -13,6 +13,8 @@
 #include <QDateTime>
 #include <QScrollBar>
 #include "chatbox.h"
+#include "configuration.h"
+#include "network.h"
 #include "ui_chatbox.h"
 
 QString pidgeon::ChatBox::EncodeHtml(QString input)
@@ -34,6 +36,7 @@ QString pidgeon::ChatBox::EncodeHtml(QString input)
 pidgeon::ChatBox::ChatBox(QWidget *parent) : QFrame(parent), ui(new Ui::ChatBox)
 {
     this->ui->setupUi(this);
+    this->ui->textEdit->setHtml("");
 }
 
 pidgeon::ChatBox::~ChatBox()
@@ -47,7 +50,42 @@ void pidgeon::ChatBox::InsertText(QString text, pidgeon::TextMode mode)
     tx += EncodeHtml(QDateTime::currentDateTime().toString());
     tx += ": ";
     tx += EncodeHtml(text);
-    tx += "<br>\n";
+    //tx += "<br>";
     this->ui->textEdit->setHtml(tx);
     this->ui->textEdit->verticalScrollBar()->setSliderPosition(this->ui->textEdit->verticalScrollBar()->maximum());
+}
+
+void pidgeon::ChatBox::ProcessInput(QString text)
+{
+    QString double_pr = Configuration::CommandPrefix + Configuration::CommandPrefix;
+    if (text.startsWith(Configuration::CommandPrefix) && !text.startsWith(double_pr))
+    {
+        QString command = text.mid(1);
+        QString parameters;
+        if (command.contains(" "))
+        {
+            int x = command.indexOf(" ");
+            parameters = command.mid(x + 1);
+            command = command.mid(0, x);
+        }
+        if (command == "server")
+        {
+
+        }
+        this->InsertText("Invalid command");
+        return;
+    }
+    else if (text.startsWith(double_pr))
+        text = text.mid(1);
+    if (!Network::MainNetwork || !Network::MainNetwork->IsConnected())
+    {
+        this->InsertText("Not connected");
+        return;
+    }
+}
+
+void pidgeon::ChatBox::on_lineEdit_returnPressed()
+{
+    this->ProcessInput(this->ui->lineEdit->text());
+    this->ui->lineEdit->setText("");
 }

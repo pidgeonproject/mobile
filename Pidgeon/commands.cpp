@@ -10,30 +10,20 @@
 
 // Copyright (c) Petr Bena 2014
 
-#ifndef NETWORK_H
-#define NETWORK_H
+#include "commands.h"
+#include "window.h"
+#include "chatbox.h"
 
-#include <QString>
-#include <QList>
-#include "protocol.h"
+using namespace pidgeon;
 
-namespace pidgeon
+void Commands::Server(QString params)
 {
-    class Network
+    int port = 6667;
+    QString server = params;
+    if (server.contains(" "))
     {
-        public:
-            static Network *MainNetwork;
-            static QList<Network*> Networks;
-            Network();
-            ~Network();
-            bool IsConnected();
-            QString Name;
-            QString Nickname;
-            QString Ident;
-            QString Hostname;
-        private:
-            bool isConnected;
-    };
+        port = params.mid(params.indexOf(" ") + 1).toInt();
+        server = server.mid(0, server.indexOf(" "));
+    }
+    Window::MainWindow->CurrentWindow->InsertText("Connecting to " + server + " using port " + QString::number(port));
 }
-
-#endif // NETWORK_H

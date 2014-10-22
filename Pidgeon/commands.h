@@ -10,30 +10,18 @@
 
 // Copyright (c) Petr Bena 2014
 
-#ifndef NETWORK_H
-#define NETWORK_H
+#ifndef COMMANDS_H
+#define COMMANDS_H
 
 #include <QString>
-#include <QList>
-#include "protocol.h"
 
 namespace pidgeon
 {
-    class Network
+    class Commands
     {
         public:
-            static Network *MainNetwork;
-            static QList<Network*> Networks;
-            Network();
-            ~Network();
-            bool IsConnected();
-            QString Name;
-            QString Nickname;
-            QString Ident;
-            QString Hostname;
-        private:
-            bool isConnected;
+            static void Server(QString params);
     };
 }
 
-#endif // NETWORK_H
+#endif // COMMANDS_H

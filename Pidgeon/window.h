@@ -24,13 +24,22 @@ namespace Ui
 namespace pidgeon
 {
     class ChatBox;
+    // channels
+    class Items;
 
     class Window : public QMainWindow
     {
             Q_OBJECT
         public:
+            static Window * MainWindow;
+
             explicit Window(QWidget *parent = 0);
             ~Window();
+            ChatBox *CurrentWindow;
+
+        private slots:
+            void on_actionServers_channels_triggered();
+            void on_actionExit_triggered();
 
         private:
             ChatBox *Root;

@@ -10,30 +10,32 @@
 
 // Copyright (c) Petr Bena 2014
 
-#ifndef NETWORK_H
-#define NETWORK_H
+#ifndef ITEMS_H
+#define ITEMS_H
 
-#include <QString>
-#include <QList>
-#include "protocol.h"
+#include <QDialog>
+
+namespace Ui
+{
+    class Items;
+}
 
 namespace pidgeon
 {
-    class Network
+    class Items : public QDialog
     {
+            Q_OBJECT
         public:
-            static Network *MainNetwork;
-            static QList<Network*> Networks;
-            Network();
-            ~Network();
-            bool IsConnected();
-            QString Name;
-            QString Nickname;
-            QString Ident;
-            QString Hostname;
+            static Items *List;
+            explicit Items(QWidget *parent = 0);
+            ~Items();
+
+        private slots:
+            void on_pushButton_clicked();
+
         private:
-            bool isConnected;
+            Ui::Items *ui;
     };
 }
 
-#endif // NETWORK_H
+#endif // ITEMS_H

@@ -39,6 +39,10 @@ namespace pidgeon
             explicit ChatBox(QWidget *parent = 0);
             ~ChatBox();
             void InsertText(QString text, TextMode mode = TextMode_System);
+            void ProcessInput(QString text);
+
+        private slots:
+            void on_lineEdit_returnPressed();
 
         private:
             Ui::ChatBox *ui;

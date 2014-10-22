@@ -10,30 +10,22 @@
 
 // Copyright (c) Petr Bena 2014
 
-#ifndef NETWORK_H
-#define NETWORK_H
+#ifndef USER_H
+#define USER_H
 
 #include <QString>
-#include <QList>
-#include "protocol.h"
 
 namespace pidgeon
 {
-    class Network
+    class User
     {
         public:
-            static Network *MainNetwork;
-            static QList<Network*> Networks;
-            Network();
-            ~Network();
-            bool IsConnected();
-            QString Name;
+            User();
             QString Nickname;
-            QString Ident;
             QString Hostname;
-        private:
-            bool isConnected;
+            QString Realname;
+            QString Id;
     };
 }
 
-#endif // NETWORK_H
+#endif // USER_H

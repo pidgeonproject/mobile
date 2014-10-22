@@ -10,30 +10,11 @@
 
 // Copyright (c) Petr Bena 2014
 
-#ifndef NETWORK_H
-#define NETWORK_H
+#include "configuration.h"
 
-#include <QString>
-#include <QList>
-#include "protocol.h"
+QString pidgeon::Configuration::Version = "1.0.0.0";
+QString pidgeon::Configuration::CommandPrefix = "/";
 
-namespace pidgeon
+pidgeon::Configuration::Configuration()
 {
-    class Network
-    {
-        public:
-            static Network *MainNetwork;
-            static QList<Network*> Networks;
-            Network();
-            ~Network();
-            bool IsConnected();
-            QString Name;
-            QString Nickname;
-            QString Ident;
-            QString Hostname;
-        private:
-            bool isConnected;
-    };
 }
-
-#endif // NETWORK_H

@@ -12,20 +12,36 @@
 
 #include "window.h"
 #include "chatbox.h"
+#include "items.h"
 #include "ui_window.h"
 
 using namespace pidgeon;
 
+Window *Window::MainWindow = NULL;
+
 Window::Window(QWidget *parent) : QMainWindow(parent), ui(new Ui::Window)
 {
+    MainWindow = this;
     this->ui->setupUi(this);
     this->Root = new ChatBox(this);
     this->Chats.insert(0, Root);
     this->ui->verticalLayout->addWidget(this->Root);
+    this->CurrentWindow = this->Root;
+    Items::List = new Items(this);
     this->Root->InsertText("Welcome to pidgeon, you can use command /server <hostname> to connect to an IRC server");
 }
 
 Window::~Window()
 {
     delete this->ui;
+}
+
+void pidgeon::Window::on_actionServers_channels_triggered()
+{
+    Items::List->show();
+}
+
+void pidgeon::Window::on_actionExit_triggered()
+{
+    QApplication::exit();
 }

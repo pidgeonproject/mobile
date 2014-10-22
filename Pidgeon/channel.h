@@ -10,30 +10,19 @@
 
 // Copyright (c) Petr Bena 2014
 
-#ifndef NETWORK_H
-#define NETWORK_H
+#ifndef CHANNEL_H
+#define CHANNEL_H
 
 #include <QString>
-#include <QList>
-#include "protocol.h"
 
 namespace pidgeon
 {
-    class Network
+    class Channel
     {
         public:
-            static Network *MainNetwork;
-            static QList<Network*> Networks;
-            Network();
-            ~Network();
-            bool IsConnected();
-            QString Name;
-            QString Nickname;
-            QString Ident;
-            QString Hostname;
-        private:
-            bool isConnected;
+            Channel();
+            ~Channel();
     };
 }
 
-#endif // NETWORK_H
+#endif // CHANNEL_H

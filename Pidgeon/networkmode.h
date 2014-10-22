@@ -10,30 +10,16 @@
 
 // Copyright (c) Petr Bena 2014
 
-#ifndef NETWORK_H
-#define NETWORK_H
-
-#include <QString>
-#include <QList>
-#include "protocol.h"
+#ifndef NETWORKMODE_H
+#define NETWORKMODE_H
 
 namespace pidgeon
 {
-    class Network
+    class NetworkMode
     {
         public:
-            static Network *MainNetwork;
-            static QList<Network*> Networks;
-            Network();
-            ~Network();
-            bool IsConnected();
-            QString Name;
-            QString Nickname;
-            QString Ident;
-            QString Hostname;
-        private:
-            bool isConnected;
+            NetworkMode();
     };
 }
 
-#endif // NETWORK_H
+#endif // NETWORKMODE_H

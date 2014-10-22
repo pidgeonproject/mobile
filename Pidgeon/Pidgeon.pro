@@ -17,16 +17,31 @@ SOURCES += main.cpp\
     chatbox.cpp \
     protocol.cpp \
     protocolsv.cpp \
-    network.cpp
+    network.cpp \
+    user.cpp \
+    channel.cpp \
+    protocolirc.cpp \
+    networkmode.cpp \
+    configuration.cpp \
+    items.cpp \
+    commands.cpp
 
 HEADERS  += window.h \
     chatbox.h \
     protocol.h \
     protocolsv.h \
-    network.h
+    network.h \
+    user.h \
+    channel.h \
+    protocolirc.h \
+    networkmode.h \
+    configuration.h \
+    items.h \
+    commands.h
 
 FORMS    += window.ui \
-    chatbox.ui
+    chatbox.ui \
+    items.ui
 
 CONFIG += mobility
 MOBILITY = 
