@@ -12,6 +12,8 @@
 
 #include "commands.h"
 #include "window.h"
+#include "protocolirc.h"
+#include "network.h"
 #include "chatbox.h"
 
 using namespace pidgeon;
@@ -26,4 +28,8 @@ void Commands::Server(QString params)
         server = server.mid(0, server.indexOf(" "));
     }
     Window::MainWindow->CurrentWindow->InsertText("Connecting to " + server + " using port " + QString::number(port));
+    // let's open a connection to new network and set it as default network for now
+    ProtocolIRC *protocol = new ProtocolIRC();
+    protocol->Port = port;
+    protocol->Hostname = server;
 }

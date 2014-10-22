@@ -22,6 +22,7 @@ namespace pidgeon
         public:
             Channel();
             ~Channel();
+            QString Name;
     };
 }
 

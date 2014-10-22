@@ -22,6 +22,21 @@ Network::Network()
     this->isConnected = false;
 }
 
+Network::~Network()
+{
+
+}
+
+void Network::Connect()
+{
+
+}
+
+void Network::Disconnect()
+{
+
+}
+
 bool Network::IsConnected()
 {
     return this->isConnected;

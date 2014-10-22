@@ -11,7 +11,35 @@
 // Copyright (c) Petr Bena 2014
 
 #include "protocolirc.h"
+#include "network.h"
+#include "chatbox.h"
+#include "configuration.h"
+
+using namespace pidgeon;
 
 ProtocolIRC::ProtocolIRC()
 {
+    this->network = new Network();
+    this->SystemWin = new ChatBox();
+}
+
+ProtocolIRC::~ProtocolIRC()
+{
+    delete this->SystemWin;
+    delete this->network;
+}
+
+bool ProtocolIRC::IsConnected()
+{
+    return this->network->IsConnected();
+}
+
+void ProtocolIRC::Connect()
+{
+    this->network->Connect();
+}
+
+void ProtocolIRC::Disconnect()
+{
+    this->network->Disconnect();
 }

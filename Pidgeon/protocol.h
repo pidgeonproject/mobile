@@ -22,7 +22,10 @@ namespace pidgeon
         public:
             static QList<Protocol*> Protocols;
             Protocol();
-            ~Protocol();
+            virtual ~Protocol();
+            virtual void Connect() {}
+            virtual void Disconnect() {}
+            virtual bool IsConnected() { return false; }
     };
 }
 

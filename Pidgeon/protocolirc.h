@@ -13,10 +13,29 @@
 #ifndef PROTOCOLIRC_H
 #define PROTOCOLIRC_H
 
-class ProtocolIRC
+#include "protocol.h"
+#include <QString>
+
+namespace pidgeon
 {
-    public:
-        ProtocolIRC();
-};
+    class ChatBox;
+    class Network;
+    class ProtocolIRC : Protocol
+    {
+        public:
+            ProtocolIRC();
+            ~ProtocolIRC();
+            bool IsConnected();
+            void Connect();
+            void Disconnect();
+            //! Port we use to connect to the irc server
+            int Port;
+            ChatBox *SystemWin;
+            QString Hostname;
+
+        private:
+            Network *network;
+    };
+}
 
 #endif // PROTOCOLIRC_H

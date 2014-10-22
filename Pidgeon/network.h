@@ -26,6 +26,8 @@ namespace pidgeon
             static QList<Network*> Networks;
             Network();
             ~Network();
+            void Connect();
+            void Disconnect();
             bool IsConnected();
             QString Name;
             QString Nickname;

@@ -14,11 +14,14 @@
 
 using namespace pidgeon;
 
+QList<Protocol*> Protocol::Protocols;
+
 Protocol::Protocol()
 {
+    Protocols.append(this);
 }
 
 Protocol::~Protocol()
 {
-
+    Protocols.removeOne(this);
 }

@@ -13,9 +13,11 @@
 #ifndef PROTOCOLSV_H
 #define PROTOCOLSV_H
 
+#include "protocol.h"
+
 namespace pidgeon
 {
-    class ProtocolSv
+    class ProtocolSv : Protocol
     {
         public:
             ProtocolSv();
