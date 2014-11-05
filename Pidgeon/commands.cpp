@@ -31,6 +31,7 @@ void Commands::Server(QString params)
     ProtocolIRC *protocol = new ProtocolIRC();
     protocol->Port = port;
     protocol->Hostname = server;
+    protocol->Register();
     protocol->SystemWin->InsertText("Connecting to " + server + " using port " + QString::number(port));
     protocol->Connect();
     Window::MainWindow->SwitchChat(protocol->SystemWin);

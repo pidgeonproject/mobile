@@ -11,6 +11,7 @@
 // Copyright (c) Petr Bena 2014
 
 #include "items.h"
+#include "window.h"
 #include "ui_items.h"
 
 using namespace pidgeon;
@@ -22,11 +23,12 @@ Items::Items(QWidget *parent) : QDialog(parent), ui(new Ui::Items)
     this->ui->setupUi(this);
     this->Model = new QStandardItemModel();
     this->Root = this->Model->invisibleRootItem();
-    db.insert(0, new QStandardItem("System"));
-    this->Root->appendRow(db[0]);
+    this->SystemWindow = new QStandardItem("System");
+    this->Root->appendRow(this->SystemWindow);
     this->ui->treeView->setModel(this->Model);
     this->ui->treeView->header()->hide();
     this->ui->treeView->expandAll();
+    this->db.insert(this->SystemWindow, Window::MainWindow->Root);
 }
 
 Items::~Items()
@@ -36,7 +38,8 @@ Items::~Items()
 
 void Items::Open(const QModelIndex &index)
 {
-
+    if (this->db.contains(this->Model->itemFromIndex(index)))
+        Window::MainWindow->SwitchChat(db[this->Model->itemFromIndex(index)]);
 }
 
 void Items::Refresh()
@@ -51,5 +54,10 @@ void pidgeon::Items::on_pushButton_clicked()
 
 void pidgeon::Items::on_treeView_activated(const QModelIndex &index)
 {
+    this->Open(index);
+}
 
+void pidgeon::Items::on_treeView_clicked(const QModelIndex &index)
+{
+    this->Open(index);
 }

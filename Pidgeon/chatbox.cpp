@@ -39,6 +39,8 @@ pidgeon::ChatBox::ChatBox(QWidget *parent) : QFrame(parent), ui(new Ui::ChatBox)
     this->ui->setupUi(this);
     this->ui->textEdit->setHtml("");
     this->LayedOut = false;
+    this->ParentItem = NULL;
+    this->Item = NULL;
     // this is a workaround until qt can handle this we need the text to start a bottom, but valign
     // is clearly not working for some reason
     this->TextBuffer = "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"\
@@ -53,10 +55,24 @@ pidgeon::ChatBox::~ChatBox()
 void pidgeon::ChatBox::InsertText(QString text, pidgeon::TextMode mode)
 {
     //QString tx = this->ui->textEdit->toHtml();
+    QString color;
+    switch (mode)
+    {
+        // both user and channel have same color
+        case TextMode_User:
+        case TextMode_Channel:
+            color = "#FFFFFF";
+            break;
+        case TextMode_System:
+            color = "#91EB65";
+            break;
+    }
+    this->TextBuffer += "<font color=\"" + color + "\">";
     this->TextBuffer += EncodeHtml(QDateTime::currentDateTime().toString());
     this->TextBuffer += ": ";
     this->TextBuffer += EncodeHtml(text);
-    this->TextBuffer += "<br>";
+    this->TextBuffer += "</font>\n";
+    this->TextBuffer += "<br>\n";
     QString html = "<html><head></head><body><table height='100%' width='100%'><tr><td valign='bottom'>";
     html += this->TextBuffer;
     html += "</td></tr></table></body></html>";

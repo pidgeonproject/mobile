@@ -13,6 +13,7 @@
 #ifndef CHATBOX_H
 #define CHATBOX_H
 
+#include <QStandardItem>
 #include <QString>
 #include <QFrame>
 
@@ -40,6 +41,8 @@ namespace pidgeon
             ~ChatBox();
             void InsertText(QString text, TextMode mode = TextMode_System);
             void ProcessInput(QString text);
+            QStandardItem *ParentItem;
+            QStandardItem *Item;
             bool LayedOut;
 
         private slots:

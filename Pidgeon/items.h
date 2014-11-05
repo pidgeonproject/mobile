@@ -25,6 +25,7 @@ namespace Ui
 
 namespace pidgeon
 {
+    class ChatBox;
     class Items : public QDialog
     {
             Q_OBJECT
@@ -34,12 +35,15 @@ namespace pidgeon
             ~Items();
             void Open(const QModelIndex &index);
             void Refresh();
-            QHash<int, QStandardItem*> db;
+            QStandardItem *SystemWindow;
+            QHash<QStandardItem*, ChatBox*> db;
             QStandardItemModel *Model;
 
         private slots:
             void on_pushButton_clicked();
             void on_treeView_activated(const QModelIndex &index);
+
+            void on_treeView_clicked(const QModelIndex &index);
 
         private:
             QStandardItem *Root;

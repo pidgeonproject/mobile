@@ -12,6 +12,7 @@
 
 #include "protocolirc.h"
 #include "network.h"
+#include "items.h"
 #include "chatbox.h"
 #include "configuration.h"
 
@@ -36,10 +37,21 @@ bool ProtocolIRC::IsConnected()
 
 void ProtocolIRC::Connect()
 {
-    this->network->Connect();
+    //this->network->Connect();
+    // let's create a new connection to irc server
+
 }
 
 void ProtocolIRC::Disconnect()
 {
     this->network->Disconnect();
+}
+
+void ProtocolIRC::Register()
+{
+    // let's register this chat box as parent of root
+    this->SystemWin->ParentItem = Items::List->SystemWindow;
+    this->SystemWin->Item = new QStandardItem(this->Hostname);
+    Items::List->db.insert(this->SystemWin->Item, this->SystemWin);
+    Items::List->SystemWindow->appendRow(this->SystemWin->Item);
 }

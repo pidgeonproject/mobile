@@ -39,6 +39,7 @@ namespace pidgeon
             void SwitchChat(int id);
             void SwitchChat(ChatBox *chat);
             ChatBox *CurrentWindow;
+            ChatBox *Root;
 
         private slots:
             void on_actionServers_channels_triggered();
@@ -46,7 +47,6 @@ namespace pidgeon
             void on_actionSystem_window_triggered();
 
         private:
-            ChatBox *Root;
             QHash<int, ChatBox*> Chats;
             unsigned int LastChat;
             Ui::Window *ui;

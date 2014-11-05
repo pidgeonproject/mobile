@@ -28,6 +28,7 @@ namespace pidgeon
             bool IsConnected();
             void Connect();
             void Disconnect();
+            void Register();
             //! Port we use to connect to the irc server
             int Port;
             ChatBox *SystemWin;
