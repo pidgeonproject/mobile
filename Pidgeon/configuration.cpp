@@ -14,6 +14,8 @@
 
 QString pidgeon::Configuration::Version = "1.0.0.0";
 QString pidgeon::Configuration::CommandPrefix = "/";
+QString pidgeon::Configuration::Nickname = "PidgeonUser";
+QString pidgeon::Configuration::Ident = "pidgeon";
 
 pidgeon::Configuration::Configuration()
 {

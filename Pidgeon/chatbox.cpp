@@ -12,6 +12,7 @@
 
 #include <QDateTime>
 #include <QScrollBar>
+#include "commands.h"
 #include "chatbox.h"
 #include "configuration.h"
 #include "network.h"
@@ -37,6 +38,11 @@ pidgeon::ChatBox::ChatBox(QWidget *parent) : QFrame(parent), ui(new Ui::ChatBox)
 {
     this->ui->setupUi(this);
     this->ui->textEdit->setHtml("");
+    this->LayedOut = false;
+    // this is a workaround until qt can handle this we need the text to start a bottom, but valign
+    // is clearly not working for some reason
+    this->TextBuffer = "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"\
+                         "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 }
 
 pidgeon::ChatBox::~ChatBox()
@@ -46,12 +52,15 @@ pidgeon::ChatBox::~ChatBox()
 
 void pidgeon::ChatBox::InsertText(QString text, pidgeon::TextMode mode)
 {
-    QString tx = this->ui->textEdit->toHtml();
-    tx += EncodeHtml(QDateTime::currentDateTime().toString());
-    tx += ": ";
-    tx += EncodeHtml(text);
-    //tx += "<br>";
-    this->ui->textEdit->setHtml(tx);
+    //QString tx = this->ui->textEdit->toHtml();
+    this->TextBuffer += EncodeHtml(QDateTime::currentDateTime().toString());
+    this->TextBuffer += ": ";
+    this->TextBuffer += EncodeHtml(text);
+    this->TextBuffer += "<br>";
+    QString html = "<html><head></head><body><table height='100%' width='100%'><tr><td valign='bottom'>";
+    html += this->TextBuffer;
+    html += "</td></tr></table></body></html>";
+    this->ui->textEdit->setHtml(html);
     this->ui->textEdit->verticalScrollBar()->setSliderPosition(this->ui->textEdit->verticalScrollBar()->maximum());
 }
 
@@ -70,10 +79,16 @@ void pidgeon::ChatBox::ProcessInput(QString text)
         }
         if (command == "server")
         {
-
+            if (parameters.isEmpty())
+                goto missing;
+            Commands::Server(parameters);
+            return;
         }
-        this->InsertText("Invalid command");
+        this->InsertText("Invalid command: " + command);
         return;
+        missing:
+            this->InsertText("Missing parameter");
+            return;
     }
     else if (text.startsWith(double_pr))
         text = text.mid(1);
@@ -86,6 +101,6 @@ void pidgeon::ChatBox::ProcessInput(QString text)
 
 void pidgeon::ChatBox::on_lineEdit_returnPressed()
 {
-    this->ProcessInput(this->ui->lineEdit->text());
-    this->ui->lineEdit->setText("");
+    this->ProcessInput(QString(this->ui->lineEdit->text()));
+    this->ui->lineEdit->clear();
 }

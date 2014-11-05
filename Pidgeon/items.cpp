@@ -20,6 +20,13 @@ Items *Items::List = NULL;
 Items::Items(QWidget *parent) : QDialog(parent), ui(new Ui::Items)
 {
     this->ui->setupUi(this);
+    this->Model = new QStandardItemModel();
+    this->Root = this->Model->invisibleRootItem();
+    db.insert(0, new QStandardItem("System"));
+    this->Root->appendRow(db[0]);
+    this->ui->treeView->setModel(this->Model);
+    this->ui->treeView->header()->hide();
+    this->ui->treeView->expandAll();
 }
 
 Items::~Items()
@@ -27,7 +34,22 @@ Items::~Items()
     delete this->ui;
 }
 
+void Items::Open(const QModelIndex &index)
+{
+
+}
+
+void Items::Refresh()
+{
+
+}
+
 void pidgeon::Items::on_pushButton_clicked()
 {
     this->hide();
+}
+
+void pidgeon::Items::on_treeView_activated(const QModelIndex &index)
+{
+
 }

@@ -10,6 +10,7 @@
 
 // Copyright (c) Petr Bena 2014
 
+#include "configuration.h"
 #include "network.h"
 
 using namespace pidgeon;
@@ -20,6 +21,8 @@ QList<Network*> Network::Networks;
 Network::Network()
 {
     this->isConnected = false;
+    this->Nickname = Configuration::Nickname;
+    this->Ident = Configuration::Ident;
 }
 
 Network::~Network()

@@ -14,6 +14,9 @@
 #define ITEMS_H
 
 #include <QDialog>
+#include <QStandardItem>
+#include <QStandardItemModel>
+#include <QHash>
 
 namespace Ui
 {
@@ -29,11 +32,17 @@ namespace pidgeon
             static Items *List;
             explicit Items(QWidget *parent = 0);
             ~Items();
+            void Open(const QModelIndex &index);
+            void Refresh();
+            QHash<int, QStandardItem*> db;
+            QStandardItemModel *Model;
 
         private slots:
             void on_pushButton_clicked();
+            void on_treeView_activated(const QModelIndex &index);
 
         private:
+            QStandardItem *Root;
             Ui::Items *ui;
     };
 }

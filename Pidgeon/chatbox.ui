@@ -57,6 +57,9 @@ color: rgb(255, 255, 255);</string>
       <string notr="true">background-color: rgb(21, 21, 21);
 color: rgb(255, 255, 255);</string>
      </property>
+     <property name="inputMethodHints">
+      <set>Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText</set>
+     </property>
     </widget>
    </item>
   </layout>

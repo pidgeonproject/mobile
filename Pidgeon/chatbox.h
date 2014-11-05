@@ -40,11 +40,13 @@ namespace pidgeon
             ~ChatBox();
             void InsertText(QString text, TextMode mode = TextMode_System);
             void ProcessInput(QString text);
+            bool LayedOut;
 
         private slots:
             void on_lineEdit_returnPressed();
 
         private:
+            QString TextBuffer;
             Ui::ChatBox *ui;
     };
 }

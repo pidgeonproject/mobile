@@ -24,6 +24,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), ui(new Ui::Window)
     MainWindow = this;
     this->ui->setupUi(this);
     this->Root = new ChatBox(this);
+    this->LastChat = 0;
     this->Chats.insert(0, Root);
     this->ui->verticalLayout->addWidget(this->Root);
     this->CurrentWindow = this->Root;
@@ -36,6 +37,30 @@ Window::~Window()
     delete this->ui;
 }
 
+void Window::SwitchChat(int id)
+{
+    if (this->Chats.contains(id))
+        this->SwitchChat(this->Chats[id]);
+}
+
+void Window::SwitchChat(ChatBox *chat)
+{
+    if (!this->Chats.values().contains(chat))
+    {
+        // we need to insert this new chat window to list
+        this->LastChat++;
+        this->Chats.insert(this->LastChat, chat);
+    }
+    this->CurrentWindow->hide();
+    this->CurrentWindow = chat;
+    if (!this->CurrentWindow->LayedOut)
+    {
+        this->CurrentWindow->LayedOut = true;
+        this->ui->verticalLayout->addWidget(this->CurrentWindow);
+    }
+    this->CurrentWindow->show();
+}
+
 void pidgeon::Window::on_actionServers_channels_triggered()
 {
     Items::List->show();
@@ -44,4 +69,9 @@ void pidgeon::Window::on_actionServers_channels_triggered()
 void pidgeon::Window::on_actionExit_triggered()
 {
     QApplication::exit();
+}
+
+void pidgeon::Window::on_actionSystem_window_triggered()
+{
+    this->SwitchChat(ROOT);
 }

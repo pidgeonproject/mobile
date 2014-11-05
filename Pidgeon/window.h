@@ -12,6 +12,7 @@
 
 #ifndef WINDOW_H
 #define WINDOW_H
+#define ROOT 0
 
 #include <QMainWindow>
 #include <QHash>
@@ -35,15 +36,19 @@ namespace pidgeon
 
             explicit Window(QWidget *parent = 0);
             ~Window();
+            void SwitchChat(int id);
+            void SwitchChat(ChatBox *chat);
             ChatBox *CurrentWindow;
 
         private slots:
             void on_actionServers_channels_triggered();
             void on_actionExit_triggered();
+            void on_actionSystem_window_triggered();
 
         private:
             ChatBox *Root;
             QHash<int, ChatBox*> Chats;
+            unsigned int LastChat;
             Ui::Window *ui;
     };
 }

@@ -24,6 +24,8 @@ namespace pidgeon
             Configuration();
             static QString CommandPrefix;
             static QString Version;
+            static QString Nickname;
+            static QString Ident;
     };
 }
 
